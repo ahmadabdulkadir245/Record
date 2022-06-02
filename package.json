@@ -1,0 +1,41 @@
+{
+  "name": "acejamb",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
+    "lint": "next lint",
+    "build-css": "tailwindcss build src/style.css -o public/style.css"
+  },
+  "dependencies": {
+    "@heroicons/react": "^1.0.5",
+    "@reduxjs/toolkit": "^1.8.1",
+    "axios": "^0.24.0",
+    "firebase": "^9.6.11",
+    "framer-motion": "^6.2.6",
+    "heroicons-react": "^1.4.1",
+    "next": "^12.1.6",
+    "next-auth": "^4.3.2",
+    "npm": "^8.2.0",
+    "oidc-client": "^1.11.5",
+    "postcss-import": "^14.0.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-icons": "^4.3.1",
+    "react-redux": "^8.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "eslint": "8.4.0",
+    "eslint-config-next": "12.0.5",
+    "postcss": "^8.4.4",
+    "prisma": "^3.12.0",
+    "tailwindcss": "^2.2.19"
+  },
+  "description": "cool build",
+  "main": "index.js",
+  "author": "Yarn contributors"
+}
