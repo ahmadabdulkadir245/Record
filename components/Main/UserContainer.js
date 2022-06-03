@@ -10,18 +10,20 @@ function UserContainer({ user, amount, path }) {
   };
 
   return (
-    <div className='grid grid-cols-2 gap-6 md:gap-8 px-4 lg:px-0'>
+    <div className='grid  px-4  lg:px-0 m-auto'>
       <Link href={path}>
         <div
-          className={`col-span-2 flex justify-between items-center p-3 border-2 border-[${primaryBlue}] w-full  lg:w-[100%] outline-none rounded-md bg-[${primaryBlue}] my-3`}
+          className={`p-3 border-2 border-[${primaryBlue}] w-full  lg:w-[100%] outline-none rounded-md bg-[${primaryBlue}] my-3`}
           onClick={navigateToNavigation}
         >
-          <span>
-            <p className='text-white text-xl capitalize'>{user}</p>
-          </span>
-          <span>
-            <p className={`text-white text-xl `}>N{amount}</p>
-          </span>
+          <div className='flex justify-between items-center'>
+            <span>
+              <p className='text-white text-xl capitalize'>{user}</p>
+            </span>
+            <span>
+              <p className={`text-white text-xl `}>N{amount}</p>
+            </span>
+          </div>
         </div>
       </Link>
     </div>
