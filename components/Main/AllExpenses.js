@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import { selectedExpenseTotal } from "../../slices/expensesSlice";
 import ExpenseContainer from "./ExpenseContainer";

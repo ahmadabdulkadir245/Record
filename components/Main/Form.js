@@ -74,6 +74,7 @@ function Form({ userId }) {
       alert("Added Successfully");
       router.replace(`/user/${userId}`);
       // const id = await storeExpense(userExpenseDetails);
+      // storeExpense(userExpenseDetails);
       // dispatch(addExpense({ ...userExpenseDetails, id: id }));
       dispatch(
         addExpense({

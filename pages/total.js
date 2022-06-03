@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import AllExpense from "../components/Main/allExpenses";
-import UserNavigation from "../components/Main/UserNavigation";
 import { selectedExpense } from "../slices/expensesSlice";
 
 function Total() {

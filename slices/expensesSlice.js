@@ -11,7 +11,7 @@ const expensesSlice = createSlice({
     addExpense: (state, action) => {
       state.expenses = [action.payload, ...state.expenses];
       const inverted = state.expenses.reverse();
-      // storeExpense(inverted);
+      storeExpense(inverted);
     },
     updateExpense: (state, action) => {
       const index = state.expenses.findIndex(
