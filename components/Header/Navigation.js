@@ -2,7 +2,6 @@ import { CalendarIcon, HomeIcon, MenuAlt1Icon } from "@heroicons/react/solid";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-// import { selectItems } from "../../slices/userSlice";
 import SideBar from "./SideBar";
 import { MdClear } from "react-icons/md";
 import Colors from "../../constants/Colors";
@@ -34,7 +33,7 @@ function Navigation() {
           <div className={`flex items-center`}>
             <Link href='/'>
               <a
-                className={`text-3xl flex items-center font-semibold text-[${primaryBlue}]`}
+                className={`text-3xl flex items-center font-semibold text-[${primaryBlue}] `}
               >
                 {/* <HomeIcon className='h-10 ' /> */}
                 <CalendarIcon className='h-10' />

@@ -1,24 +1,30 @@
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SingleUser from "../../components/Main/SingleUser";
 import UserNavigation from "../../components/Main/UserNavigation";
+import { db } from "../../firebase";
 import { fetchExpenses } from "../../http/http";
 import { selectedExpense } from "../../slices/expensesSlice";
 
 function User() {
   const [fetchExpense, setFetchExpense] = useState([]);
+  const [expense, setExpense] = useState([]);
 
   const router = useRouter();
   let userId = router.query.userId;
   const allExpense = useSelector(selectedExpense);
-  // useEffect(() => {
-  //   const getExpenses = async () => {
-  //     const expenses = await fetchExpenses();
-  //     setFetchExpense(expenses);
-  //   };
-  //   getExpenses();
-  // }, []);
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "posts"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setExpense(snapshot.docs);
+        }
+      ),
+    [db]
+  );
 
   const validExpense = allExpense.filter(
     (userExpense) => userExpense.userExpenseID === userId

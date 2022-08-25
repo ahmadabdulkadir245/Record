@@ -7,7 +7,47 @@ import {
   updateExpense,
 } from "../../slices/expensesSlice";
 import { storeExpense } from "../../http/http";
+import {
+  deleteDoc,
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "../../firebase";
 function Form({ userId }) {
+  const [loading, setLoading] = useState(false);
+
+  const uploadExpense = async () => {
+    if (loading) return;
+    setLoading(true);
+
+    // 1) create a post and add to firestore 'posts collection
+    // 2) Get the post ID for for the newly created post
+    // 3) upload the image to firease storage with the post ID
+    // 4) et a download URL from fb storage and update the original post with image
+
+    const docRef = await addDoc(collection(db, "expenses"), {
+      userExpenseID: userId,
+      amount: inputs.amount.value,
+      date: inputs.date.value,
+      purpose: inputs.purpose.value,
+      timestamp: serverTimestamp(),
+    });
+
+    console.log("New doc added with Id", docRef.id);
+    setLoading(false);
+  };
+
+  const [expense, setExpense] = useState([]);
+
+  const sendExpense = async (e) => {
+    e.preventDefault();
+  };
   const router = useRouter();
   const [warning, setWarning] = useState(false);
   const allExpenses = useSelector(selectedExpense);
@@ -41,7 +81,6 @@ function Form({ userId }) {
   const purposeIsValid = inputs.purpose.value.trim().length > 0;
   const amountIsValid = !isNaN(inputs.amount.value) && inputs.amount.value > 0;
   const dateIsValid = inputs.date.value.trim().length > 0;
-
   const dispatch = useDispatch();
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -76,6 +115,13 @@ function Form({ userId }) {
       // const id = await storeExpense(userExpenseDetails);
       // storeExpense(userExpenseDetails);
       // dispatch(addExpense({ ...userExpenseDetails, id: id }));
+      // await addDoc(collection(db, "posts", userId, "expenses"), {
+      //   userExpenseID: userId,
+      //   amount: inputs.amount.value,
+      //   date: inputs.date.value,
+      //   purpose: inputs.purpose.value,
+      //   timestamp: serverTimestamp(),
+      // });
       dispatch(
         addExpense({
           ...userExpenseDetails,

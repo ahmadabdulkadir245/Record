@@ -1,7 +1,7 @@
 import React from "react";
 import Colors from "../../constants/Colors";
 
-function ExpenseContainer({ amount, date, purpose }) {
+function ExpenseContainer({ amount, date, purpose, name }) {
   const { primaryBlue, primaryYellow } = Colors;
 
   return (
@@ -12,7 +12,10 @@ function ExpenseContainer({ amount, date, purpose }) {
       >
         <span>
           <p className='text-white text-xl'>{purpose}</p>
-          <p className='text-white text-md'>{date}</p>
+          <p className='text-white text-md'>
+            {date}
+            {name && <span className=' uppercase text-sm'>~~&gt; {name}</span>}
+          </p>
         </span>
         <span>
           <p

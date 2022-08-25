@@ -13,7 +13,7 @@ function UserContainer({ user, amount, path }) {
     <div className='grid  px-4  lg:px-0 m-auto'>
       <Link href={path}>
         <div
-          className={`p-3 border-2 border-[${primaryBlue}] w-full  lg:w-[100%] outline-none rounded-md bg-[${primaryBlue}] my-3`}
+          className={`p-3 border-2  w-full  lg:w-[100%] outline-none rounded-md bg-[${primaryBlue}] hover:bg-[#0f2841] my-3 cursor-pointer transition-all duration-200 linear`}
           onClick={navigateToNavigation}
         >
           <div className='flex justify-between items-center'>

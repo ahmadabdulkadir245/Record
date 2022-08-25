@@ -11,9 +11,14 @@ function AllExpense({ userId, userExpenses }) {
   return (
     <div>
       <UserContainer user={userId} amount={total} path={"/"} />
-      {userExpenses.map(({ id, date, purpose, amount }) => (
+      {userExpenses.map(({ id, date, purpose, amount, userExpenseID }) => (
         <div key={id}>
-          <ExpenseContainer date={date} purpose={purpose} amount={amount} />
+          <ExpenseContainer
+            date={date}
+            purpose={purpose}
+            amount={amount}
+            name={userExpenseID}
+          />
         </div>
       ))}
     </div>

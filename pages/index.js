@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Main from "../components/Main/";
-import Footer from "../components/Footer/";
 import { userAccessToken, fetchUser } from "../Util/fetchUserDetails";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -25,7 +24,6 @@ export default function Home() {
         <title>Records</title>
       </Head>
       <Main />
-      {/* <Footer /> */}
     </div>
   );
 }

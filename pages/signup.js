@@ -1,28 +1,40 @@
-import { firebaseApp } from "../firebase";
+import { app } from "../firebase";
 import { useRouter } from "next/router";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { async } from "@firebase/util";
-import { createUser } from "../Auth/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import Link from "next/link";
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/auth-context";
+import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 function Signup() {
-  const firebaseAuth = getAuth(firebaseApp);
-  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
   const router = useRouter();
-  const signIn = async () => {
-    const { user } = await signInWithPopup(firebaseAuth, provider);
-    const { refreshToken, providerData } = user;
-    localStorage.setItem("user", JSON.stringify(providerData));
-    localStorage.setItem("accessToken", JSON.stringify(refreshToken));
-    router.push("/");
+  const signInGoogle = async () => {
+    signInWithPopup(auth, googleProvider)
+      .then((response) => {
+        router.push("/");
+        sessionStorage.setItem("Token", response.user.accessToken);
+        console.log(response.user);
+      })
+      .catch((err) => console.log(err));
   };
+  useEffect(() => {
+    let token = sessionStorage.getItem("Token");
+    if (token) {
+      router.push("/");
+    }
+    console.log("token is my friend");
+    console.log(token);
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const authCtx = useContext(AuthContext);
 
   const emailInputHandler = (e) => {
     const content = e.target.value;
@@ -43,16 +55,18 @@ function Signup() {
   const signupHandler = async (e) => {
     e.preventDefault();
     if (emailIsValid && passwordIsValid && passwordIsEqual) {
-      try {
-        const token = await createUser(email, password);
-        authCtx.authenticate(token);
-        {
-          authCtx.isAuthenticated && router.push("/login");
-        }
-      } catch (error) {
-        alert(`an error occured ${error}`);
-        console.log(error);
-      }
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((response) => {
+          console.log(response.user);
+          sessionStorage.setItem("Token", response.user.accessToken);
+          router.push("/");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -102,7 +116,7 @@ function Signup() {
           </div>
           <button
             className='flex justify-center m-auto mt-2  bg-transparent text-[#093158] w-56 rounded-full border-[2px]  px-2 py-3 2xl:p-3 outline-none transition-all duration-200 ease-in hover:bg-[#093158] hover:text-white 2xl:w-[300px] items-center'
-            onClick={signIn}
+            onClick={signInGoogle}
           >
             <FcGoogle className='h-5' /> {""}
             <p> SIGN UP WITH GOOGLE</p>
@@ -114,7 +128,3 @@ function Signup() {
 }
 
 export default Signup;
-
-Signup.getLayout = function pageLayout(page) {
-  return <>{page}</>;
-};
